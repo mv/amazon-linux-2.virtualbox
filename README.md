@@ -2,10 +2,11 @@
 
 
 To automate the creation of a Virtualbox virtual machine based on Amazon Linux 2
-image released by AWS at https://cdn.amazonlinux.com/os-images/latest/virtualbox/
+image [latest](https://cdn.amazonlinux.com/os-images/latest/virtualbox/) release
+by AWS.
 
-A (Virtualbox)[https://www.virtualbox.org/] vm enables the usage of Amazon Linux
-2 locally with Vagrant.  (Vagrant)[https://www.vagrantup.com/] is a command line
+A [Virtualbox](https://www.virtualbox.org/) vm enables the usage of Amazon Linux
+2 locally with Vagrant.  [Vagrant](https://www.vagrantup.com/) is a command line
 tool that is able to work on top of Virtualbox, making the management of
 development environments very easy.
 

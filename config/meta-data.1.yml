@@ -5,7 +5,7 @@
 #   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/amazon-linux-2-virtual-machine.html
 #
 
-local-hostname: amazonlinux.onprem
+local-hostname: amzn2.onprem
 
 # network: defined by Virtualbox
 #

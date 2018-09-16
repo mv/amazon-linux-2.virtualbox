@@ -4,8 +4,10 @@
 To automate the creation of a Virtualbox virtual machine based on Amazon Linux 2
 image released by AWS at https://cdn.amazonlinux.com/os-images/latest/virtualbox/
 
-A Virtualbox vm enables the usage of Amazon Linux 2 locally with Vagrant. Vagrant
-is a command line tool that is able to work on top of Virtualbox as....
+A (Virtualbox)[https://www.virtualbox.org/] vm enables the usage of Amazon Linux
+2 locally with Vagrant.  (Vagrant)[https://www.vagrantup.com/] is a command line
+tool that is able to work on top of Virtualbox, making the management of
+development environments very easy.
 
 Because the Amazon Linux 2 released image is not an ISO file, but a VDI file,
 some work is needed to create a working vm box.
@@ -21,6 +23,7 @@ Solution:
   - import into Virtualbox
   - minimal update: set a working username password
   - tool: VBoxManage: Virtual Box command line
+  - ref: https://www.virtualbox.org/manual/ch08.html
 
 ## 2. Create a Vagrant Box
 
@@ -31,6 +34,7 @@ Solution:
   - use a 'provisioner' to create vagrant pre-requisites
   - use a 'provisioner' to run 'Virtualbox Guest Additions' and enable shared folders
   - tool: vagrant? packer?
+  - ref: https://www.vagrantup.com/docs/virtualbox/boxes.html
 
 ## 3. Update a Vagrant Box
 
@@ -41,6 +45,7 @@ Solution:
   - recompile the shared folder module
   - publish an updated Vagrant box
   - tool: vagrant
+  - ref: https://www.virtualbox.org/manual/ch04.html
 
 
 

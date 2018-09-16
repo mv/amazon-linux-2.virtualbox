@@ -1,0 +1,45 @@
+#cloud-config
+# vim:syntax=yaml
+
+#cloud-config
+users:
+  - default
+  - name: vagrant
+    groups: wheel
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    plain_text_passwd: vagrant
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key
+    lock_passwd: false
+
+chpasswd:
+  list: |
+    root:vagrant
+  expire: False
+
+
+# VirtualBox Guest Additions
+#packages:
+#  - kernel-devel
+#  - kernel-headers
+#  - gcc
+#  - make
+#  - perl
+#  - bzip2
+#  - mod_ssl
+
+
+#runcmd:
+#  # Disable root password reset
+#  - sed -i 's/.*root:RANDOM/#&/g' /etc/cloud/cloud.cfg.d/99_onprem.config
+
+# NOTE: Cloud-init applies network settings on every boot by default. To retain
+#       network settings from first boot, uncomment the following ‘write_files’
+#       section:
+write_files:
+  - path: /etc/cloud/cloud.cfg.d/80_disable_network_after_firstboot.cfg
+    content: |
+      # Disable network configuration after first boot
+      network:
+        config: disabled
+

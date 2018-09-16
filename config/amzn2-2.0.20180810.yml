@@ -1,0 +1,12 @@
+# vim:ft=yaml
+#
+# 2018/09
+# Marcus Vinicius Ferreira               ferreira.mv[ at ]gmail.com
+#
+
+iso: "/Users/mvferr/Downloads/iso/seed-data.iso"
+add: "/Users/mvferr/Downloads/iso/VBoxGuestAdditions.iso"
+vdi: "/Users/mvferr/Downloads/iso/amzn2-virtualbox-2.0.20180810-x86_64.xfs.gpt.vdi"
+
+machine_name: "amzn2-2018"
+

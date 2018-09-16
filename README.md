@@ -11,7 +11,7 @@ tool that is able to work on top of Virtualbox, making the management of
 development environments very easy.
 
 Because the Amazon Linux 2 released image is not an ISO file, but a VDI file,
-some work is needed to create a working vm box.
+some work is needed to create a working Vagrant box.
 
 
 ## 1. VDI Import

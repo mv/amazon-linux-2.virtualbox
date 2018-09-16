@@ -27,8 +27,16 @@ add="${add:?'Cannot be null'}"
 vdi="${4}"
 vdi="${vdi:?'Cannot be null'}"
 
+echo
+echo "Params:"
+echo "  machine_name: ${machine_name}"
+echo "  iso: ${iso}"
+echo "  add: ${add}"
+echo "  vdi: ${vdi}"
+echo
 
 set -x
+set -e
 
 #
 # New Machine
@@ -75,9 +83,9 @@ VBoxManage modifyvm          \
 
 #
 # ISO image: seed.iso
-#    IDE interface:
-#        0,0 Primary Master
-#        0,1 Primary Slave
+#    IDE interface:             Amazon Linux
+#        0,0 Primary Master     /dev/sr0
+#        0,1 Primary Slave      /dev/sr1
 #        1,0 Secondary Master
 #        1,1 Secondary Slave
 #
@@ -110,7 +118,7 @@ VBoxManage storagectl        \
     --name "SATA Controller" \
     --add sata               \
     --controller IntelAHCI   \
-    --sataportcount 1        \
+    --portcount 1            \
     --bootable on
 
 VBoxManage storageattach            \

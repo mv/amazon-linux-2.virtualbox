@@ -14,11 +14,11 @@ desc "vbox: create from VDI"
 task :cfv => :get_vdi do
 
   puts "=== :cfv"
-# begin
+  begin
     sh "scripts/vbox.create-vm-from-vdi.sh  #{@vm} #{@iso} #{@add} #{@work_vdi}"
-# rescue
-#   printf "\nrake: cfv: error.\n\n"
-# end
+  rescue
+    printf "\nrake: cfv: Error. Check if vm already exists.\n\n"
+  end
   puts
 
 end

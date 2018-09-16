@@ -21,5 +21,6 @@ metadata: config/meta-data.1.yml
 machine_name: "amzn2-2018"
 
 # wip: Local cloud-init boot iso
+# TODO: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/amazon-linux-2-virtual-machine.html
 iso: "./amzn2/seed-data.iso"
 

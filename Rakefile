@@ -14,7 +14,7 @@ desc "vbox: create from VDI"
 task :cfv do
 
 # begin
-    sh "scripts/vbox.create-vm-from-vdi.sh  #{@vm} #{@iso} #{@add} #{@vdi}"
+    puts "scripts/vbox.create-vm-from-vdi.sh  #{@vm} #{@iso} #{@add} #{@vdi}"
 # rescue
 #   printf "\nrake: cfv: error.\n\n"
 # end
@@ -32,11 +32,11 @@ task :dm do
 
 end
 
-#desc "cloudformation: update-stack"
+desc "cloudformation: update-stack"
 task :'update-stack' => :us do
 end
 
-#desc "cloudformation: update-stack"
+desc "cloudformation: update-stack"
 task :us do
 
   begin
@@ -56,8 +56,10 @@ def usage()
   puts <<-USAGE
 
 Usage:
+  $ config=my-config.yml rake <task>
 
-Parameter file YAML format:
+Default parameter file:
+  - #{@config}
 
   USAGE
 end
@@ -67,7 +69,7 @@ task :default do
 
   puts "List of tasks:"
   tasks = `rake --tasks`
-  tasks.each_line { |line|  puts "  #{line}" }
+  tasks.each_line { |line|  puts "  #{line}" unless line == 'nil' }
   puts
 
 end
@@ -77,16 +79,19 @@ end
 ### Settings
 ###
 
-## caller directory
-@dir = ENV['PWD']
-
 require 'yaml'
-@cfg = YAML.load_file( ENV['config'] ) || 'config/amzn2.latest.yml'
-@vm  = @config['machine_name']
-@vdi = @config['vdi']
-@add = @config['add']
-@iso = @config['iso']
 
-require 'pp'
-pp @config
+## caller directory
+@previous_dir = ENV['PWD']
+
+@config = ENV['config'] || 'config/amzn2.latest.yml'
+
+@cfg = YAML.load_file( @config )
+@vm  = @cfg['machine_name']
+@vdi = @cfg['vdi']
+@add = @cfg['add']
+@iso = @cfg['iso']
+
+# require 'pp'
+# pp @config
 

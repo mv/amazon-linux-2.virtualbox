@@ -15,7 +15,7 @@
     exit 2
 }
 
-machine_name="$1"
+machine_name="${1}"
 machine_name="${machine_name:?'Cannot be null'}"
 
 iso="${2}"

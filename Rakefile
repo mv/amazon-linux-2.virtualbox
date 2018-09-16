@@ -34,11 +34,13 @@ end
 desc "vbox: delete vm"
 task :dm do
 
+  puts "=== :dm"
   begin
-    sh "scripts/vbox.delete-vm.sh #{@machine_name}"
+    sh "scripts/vbox.delete-vm.sh #{@vm}"
   rescue
-    printf "\nrake: dm: error.\n\n"
+    printf "\nrake: dm: Error. Check if vm exists.\n\n"
   end
+  puts
 
 end
 

@@ -16,6 +16,6 @@ machine_name="$1"
 machine_name="${machine_name:?'Cannot be null'}"
 
 #
-VBoxManage unregistervm $machine_name #--delete
+VBoxManage unregistervm $machine_name --delete
 
 

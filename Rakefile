@@ -11,14 +11,24 @@ task :'create-from-vdi' => :cfv do
 end
 
 desc "vbox: create from VDI"
-task :cfv do
+task :cfv => :get_vdi do
 
+  puts "=== :cfv"
 # begin
-    puts "scripts/vbox.create-vm-from-vdi.sh  #{@vm} #{@iso} #{@add} #{@vdi}"
+    sh "scripts/vbox.create-vm-from-vdi.sh  #{@vm} #{@iso} #{@add} #{@work_vdi}"
 # rescue
 #   printf "\nrake: cfv: error.\n\n"
 # end
+  puts
 
+end
+
+desc "internal: copy work VDI file"
+task :get_vdi do
+  puts "=== :get_vdi"
+  sh "mkdir -p #{@tmp_dir}"
+  sh "[ -f #{@work_vdi} ] || /bin/cp #{@vdi} #{@work_vdi}"
+  puts
 end
 
 desc "vbox: delete vm"
@@ -92,6 +102,12 @@ require 'yaml'
 @add = @cfg['add']
 @iso = @cfg['iso']
 
+@tmp_dir  = "#{__dir__}/tmp"
+@work_vdi = "#{@tmp_dir}/#{File.basename(@vdi)}"
+
 # require 'pp'
 # pp @config
+
+# puts "__FILE__ :" + __FILE__
+# puts "__dir__  :"  + __dir__
 

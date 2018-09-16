@@ -4,9 +4,22 @@
 # Marcus Vinicius Ferreira               ferreira.mv[ at ]gmail.com
 #
 
-iso: "/Users/mvferr/Downloads/iso/seed-data.iso"
-add: "/Users/mvferr/Downloads/iso/VBoxGuestAdditions.iso"
-vdi: "/Users/mvferr/Downloads/iso/amzn2-virtualbox-2.0.20180810-x86_64.xfs.gpt.vdi"
 
+# Downloaded VDI file from
+# https://cdn.amazonlinux.com/os-images/latest/virtualbox/
+vdi: "~/Downloads/iso/amzn2-virtualbox-2.0.20180810-x86_64.xfs.gpt.vdi"
+
+# Guest Additions from local installed Virtuabox
+# path: MacOS installation
+add: "/Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso"
+
+# userdata and metadata for this vm
+userdata: user-data.1.yml
+metadata: meta-data.1.yml
+
+# wip: temp name
 machine_name: "amzn2-2018"
+
+# wip: Local cloud-init boot iso
+iso: "~/Downloads/iso/seed-data.iso"
 

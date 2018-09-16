@@ -14,9 +14,9 @@ desc "vbox: create from VDI"
 task :cfv do
 
 # begin
-    sh "scripts/vbox.new-linux-server.sh  #{@machine_name} #{@iso}"
-#   sh "scripts/vbox.attach-vdi.sh        #{@machine_name} #{@vdi}"
-    sh "scripts/vbox.attach-additions.sh  #{@machine_name} #{@add}"
+    sh "scripts/vbox.new-linux-server.sh  #{@vm} #{@iso}"
+#   sh "scripts/vbox.attach-vdi.sh        #{@vm} #{@vdi}"
+    sh "scripts/vbox.attach-additions.sh  #{@vm} #{@add}"
 # rescue
 #   printf "\nrake: cfv: error.\n\n"
 # end
@@ -83,11 +83,11 @@ end
 @dir = ENV['PWD']
 
 require 'yaml'
-@config = YAML.load_file( ENV['config'] )
-@machine_name = @config['machine_name']
+@cfg = YAML.load_file( ENV['config'] ) || 'config/amzn2.latest.yml'
+@vm  = @config['machine_name']
+@vdi = @config['vdi']
 @add = @config['add']
 @iso = @config['iso']
-@vdi = @config['vdi']
 
 require 'pp'
 pp @config

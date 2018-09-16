@@ -1,4 +1,5 @@
 #!/bin/bash
+# vim:ft=sh:
 #
 # vbox-linux-server.sh
 #     VirtualBox: new linux server
@@ -9,7 +10,7 @@
 
 [ -z "$1" ] && {
     echo
-    echo "Usage: $0 <machine_name> <iso>"
+    echo "Usage: $0 <machine_name> <iso> <add> <vdi>"
     echo
     exit 2
 }
@@ -19,6 +20,13 @@ machine_name="${machine_name:?'Cannot be null'}"
 
 iso="${2}"
 iso="${iso:?'Cannot be null'}"
+
+add="${3}"
+add="${add:?'Cannot be null'}"
+
+vdi="${4}"
+vdi="${vdi:?'Cannot be null'}"
+
 
 set -x
 
@@ -62,16 +70,11 @@ VBoxManage modifyvm          \
     --usb      off           \
     --usbehci  off           \
     --vrde     off           \
-    --teleporter off         \
-    # --nictype1         Am79C970A \
-    # --nic2             hostonly  \
-    # --hostonlyadapter2 vboxnet0  \
-    # --nictype2         82540EM   \
-    # --cableconnected2  on        \
+    --teleporter off
 
 
 #
-# DVD image to boot
+# ISO image: seed.iso
 #    IDE interface:
 #        0,0 Primary Master
 #        0,1 Primary Slave
@@ -90,5 +93,30 @@ VBoxManage storageattach            \
     --device 0 --port 0             \
     --type dvddrive --medium "${iso}"
 
-# vim:ft=sh:
+# Attach 2nd iso: Guest Additions
+#
+VBoxManage storageattach            \
+    $machine_name                   \
+    --storagectl "IDE Controller"   \
+    --device 0 --port 1             \
+    --type dvddrive --medium "${add}"
+
+
+#
+# VDI: attach to SATA
+#
+VBoxManage storagectl        \
+    $machine_name            \
+    --name "SATA Controller" \
+    --add sata               \
+    --controller IntelAHCI   \
+    --sataportcount 1        \
+    --bootable on
+
+VBoxManage storageattach            \
+    $machine_name                   \
+    --storagectl "SATA Controller"  \
+    --port 0                        \
+    --type hdd --medium "${vdi}"
+
 

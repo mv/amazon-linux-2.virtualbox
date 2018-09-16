@@ -1,4 +1,5 @@
 #!/bin/bash
+# vim:ft=sh:
 #
 # 2018/09
 # Marcus Vinicius Ferreira               ferreira.mv[ at ]gmail.com
@@ -15,8 +16,6 @@ machine_name="$1"
 machine_name="${machine_name:?'Cannot be null'}"
 
 #
-VBoxManage unregistervm             \
-    $machine_name #--delete
+VBoxManage unregistervm $machine_name #--delete
 
-# vim:ft=sh:
 

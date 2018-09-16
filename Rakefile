@@ -14,9 +14,7 @@ desc "vbox: create from VDI"
 task :cfv do
 
 # begin
-    sh "scripts/vbox.new-linux-server.sh  #{@vm} #{@iso}"
-#   sh "scripts/vbox.attach-vdi.sh        #{@vm} #{@vdi}"
-    sh "scripts/vbox.attach-additions.sh  #{@vm} #{@add}"
+    sh "scripts/vbox.create-vm-from-vdi.sh  #{@vm} #{@iso} #{@add} #{@vdi}"
 # rescue
 #   printf "\nrake: cfv: error.\n\n"
 # end

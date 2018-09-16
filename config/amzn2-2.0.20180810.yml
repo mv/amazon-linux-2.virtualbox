@@ -14,8 +14,8 @@ vdi: "~/Downloads/iso/amzn2-virtualbox-2.0.20180810-x86_64.xfs.gpt.vdi"
 add: "/Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso"
 
 # userdata and metadata for this vm
-userdata: user-data.1.yml
-metadata: meta-data.1.yml
+userdata: config/user-data.1.yml
+metadata: config/meta-data.1.yml
 
 # wip: temp name
 machine_name: "amzn2-2018"

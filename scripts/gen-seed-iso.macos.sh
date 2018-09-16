@@ -4,10 +4,21 @@
 #   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/amazon-linux-2-virtual-machine.html
 #
 
-mkdir -p ./seedconfig
-/bin/cp ./user-data.yml ./seedconfig/user-data
-/bin/cp ./meta-data.yml ./seedconfig/meta-data
+[ -z "$1" ] && {
+    echo
+    echo "Usage: $0 <seed_iso_file> <config_dir>"
+    echo
+    exit 2
+}
 
-hdiutil makehybrid -o seed-data.iso -hfs -joliet -iso -default-volume-name cidata seedconfig/
+seed_file="${1}"
+seed_file="${seed_file:?'Cannot be null'}"
+
+config_dir="${2}"
+config_dir="${config_dir:?'Cannot be null'}"
+
+hdiutil makehybrid \
+  -hfs -joliet -iso -default-volume-name cidata \
+  -o "${seed_file}" "${config_dir}/"
 
 

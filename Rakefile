@@ -15,7 +15,7 @@ task :cfv => :get_vdi do
 
   puts "=== :cfv"
   begin
-    sh "scripts/vbox.create-vm-from-vdi.sh  #{@vm} #{@iso} #{@add} #{@work_vdi}"
+    sh "scripts/vbox.create-vm-from-vdi.sh  #{@vm} #{@seed_file} #{@add} #{@work_vdi}"
   rescue
     printf "\nrake: cfv: Error. Check if vm already exists.\n\n"
   end
@@ -44,21 +44,40 @@ task :dvm do
 
 end
 
-desc "cloudformation: update-stack"
-task :'update-stack' => :us do
+desc "seed: create seed-boot.iso"
+task :seed => :seed_cleanup do
+
+  puts "=== :seed"
+
+  # Start from scratch
+  sh "mkdir -p #{@seed_dir}"
+
+  # Seed info
+  sh "/bin/cp #{@cfg['metadata']} #{@seed_dir}/metadata"
+  sh "/bin/cp #{@cfg['userdata']} #{@seed_dir}/userdata"
+
+  # Extras: for verification
+  sh "/bin/cp #{@cfg['metadata']} #{@seed_dir}/"
+  sh "/bin/cp #{@cfg['userdata']} #{@seed_dir}/"
+  sh %Q{touch #{@seed_dir}/"Created_at_`/bin/date '+%Y-%m-%d_%H%M%S_GMT%Z'`" }
+
+  #
+  sh "scripts/gen-seed-iso.macos.sh #{@seed_file} #{@seed_dir}"
+  puts
+
 end
 
-desc "cloudformation: update-stack"
-task :us do
+desc "internal: seed cleanup"
+task :seed_cleanup do
 
-  begin
-    sh %Q{
-    }.gsub(/^[ ]*/,'').gsub(/[ ]+/,' ')
-  rescue
-    printf "\nrake: aws cloudformation: no updates.\n\n"
-  end
+  puts "=== :seed_cleanup"
+
+  # Force a cleanup
+  sh "/bin/rm -rf #{@seed_dir} #{@seed_file}"
+  puts
 
 end
+
 
 
 ###
@@ -104,8 +123,13 @@ require 'yaml'
 @add = @cfg['add']
 @iso = @cfg['iso']
 
+## vdi file
 @tmp_dir  = "#{__dir__}/tmp"
 @work_vdi = "#{@tmp_dir}/#{File.basename(@vdi)}"
+
+## seed.iso file
+@seed_dir  = "#{@tmp_dir}/seedconfig"
+@seed_file = "#{@tmp_dir}/seed-boot.iso"
 
 # require 'pp'
 # pp @config

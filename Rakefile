@@ -7,7 +7,7 @@
 ##
 
 desc "vbox: create from VDI"
-task :'create-from-vdi' => :cfv do
+task :create_from_vdi => :cfv do
 end
 
 desc "vbox: create from VDI"
@@ -32,7 +32,7 @@ task :get_vdi do
 end
 
 desc "vbox: delete vm"
-task :dm do
+task :dvm do
 
   puts "=== :dm"
   begin

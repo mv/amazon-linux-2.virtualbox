@@ -125,8 +125,8 @@ namespace :vg do
     puts
   end
 
-
 end # namespace vg
+
 
 namespace :seed do
 
@@ -167,32 +167,30 @@ namespace :seed do
 end # namespace seed
 
 
-  ###
-  ### Helpers
-  ###
-  def usage()
-    puts <<-USAGE
+###
+### Helpers
+###
+def usage()
+  puts <<-USAGE
 
-  Usage:
-    $ config=my-config.yml rake <task>
+Usage:
+  $ config=my-config.yml rake <task>
 
-  Default parameter file:
-    - #{@config}
+Default parameter file:
+  - #{@config}
 
-    USAGE
-  end
+  USAGE
+end
 
-  task :default do
-    usage()
+task :default do
+  usage()
 
-    puts "List of tasks:"
-    tasks = `rake --tasks`
-    tasks.each_line { |line|  puts "  #{line}" unless line == 'nil' }
-    puts
+  puts "List of tasks:"
+  tasks = `rake --tasks`
+  tasks.each_line { |line|  puts "  #{line}" unless line == 'nil' }
+  puts
 
-  end
-
-
+end
 
 
 ###

@@ -51,5 +51,12 @@ chmod 775 /etc/profile.d/aliases.sh
 # clear other 'alias ls'
 [ -e /etc/profile.d/colorls.sh ] && /bin/sed -i -e 's/^\s*alias/# alias/' /etc/profile.d/colorls.sh
 
+# PS1
+cat > /etc/profile.d/ps1.sh <<EOF
+
+export PS1='\u@\h:\w\n\\$ '
+
+EOF
+
 # vim:ft=sh:
 

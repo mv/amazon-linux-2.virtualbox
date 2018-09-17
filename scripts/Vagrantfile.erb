@@ -22,7 +22,10 @@ Vagrant.configure("2") do |config|
     vb.memory = "1024"
   end
 
-  config.vm.provision "shell", path: "../../scripts/bash-aliases.sh"
+  config.vm.provision "file", source: "../../scripts/profile.aliases.sh", destination: "/etc/profile.d/profile.aliases.sh"
+  config.vm.provision "file", source: "../../scripts/profile.ps1.sh"    , destination: "/etc/profile.d/profile.ps1.sh"
+
+  config.vm.provision "shell", path: "../../scripts/sed-colorls.sh"
   config.vm.provision "shell", path: "../../scripts/fs-swap-file.sh"
   config.vm.provision "shell", path: "../../scripts/fs-zero-out.sh"
 

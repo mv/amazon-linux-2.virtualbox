@@ -1,10 +1,7 @@
+# vim:ft=sh:
 ###
 ### Bash Aliases
 ###
-
-set -x
-
-cat > /etc/profile.d/aliases.sh <<EOF
 
 # mvf: for some time....
 alias ls='ls -hAF --color=auto --time-style=long-iso'
@@ -40,23 +37,4 @@ alias syslog="tail -f /var/log/messages"
 function mkcd  {
     mkdir -p "$1" && cd "$1"
 }
-
-# vim:ts=4:sw=4
-
-
-EOF
-
-chmod 775 /etc/profile.d/aliases.sh
-
-# clear other 'alias ls'
-[ -e /etc/profile.d/colorls.sh ] && /bin/sed -i -e 's/^\s*alias/# alias/' /etc/profile.d/colorls.sh
-
-# PS1
-cat > /etc/profile.d/ps1.sh <<EOF
-
-export PS1='\u@\h:\w\n\\$ '
-
-EOF
-
-# vim:ft=sh:
 

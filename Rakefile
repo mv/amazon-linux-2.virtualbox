@@ -43,6 +43,20 @@ namespace :vbox do
 
   end
 
+  desc "vbox: export vm"
+  task :export do
+
+    puts "=== :export"
+    begin
+      sh "/bin/rm -f #{@tmp_dir}/#{@vm}*{ovf,vmdk}"
+      sh "VBoxManage export #{@vm} --output #{@tmp_dir}/#{@vm}.ovf --ovf10 ; echo Done."
+    rescue
+      printf "\nrake: export: Error. Check if vm exists.\n\n"
+    end
+    puts
+
+  end
+
   desc "vbox: create from VDI"
   task :vdi_create => :vdi_get do
 
@@ -70,10 +84,44 @@ end # namespace vbox
 namespace :vg do
 
   desc "vagrant: package first box"
-  task :vpf do
-    puts "=== :vpf"
-    sh "/bin/rm -f #{@tmp_dir}/#{@vm}.first.box"
-    sh "vagrant package --base #{@vm} --output #{@tmp_dir}/#{@vm}.first.box"
+  task :first => :cleanup do
+    puts "=== :first"
+    sh "vagrant package --base #{@vm} --output #{@box_dir}/#{@box_file}"
+    puts
+  end
+
+
+  desc "vagrant: box add"
+  task :add do
+    puts "=== :add"
+    sh "vagrant box add #{@box_file} #{@box_dir}/#{@box_file}"
+    puts
+  end
+
+
+  desc "vagrant: provision 1"
+  task :provision1 do
+    puts "=== :provision"
+    sh "cd #{@box_dir} && vagrant init -f --template ../../scripts/Vagrantfile.erb #{@box_file}"
+    sh "cd #{@box_dir} && vagrant up --provision"
+    puts
+  end
+
+
+  desc "vagrant: provision 2"
+  task :provision2 do
+    puts "=== :provision"
+    sh "cd #{@box_dir} && vagrant halt --f"
+    sh "cd #{@box_dir} && sed -i -e 's/: true/: false/'"
+    sh "cd #{@box_dir} && vagrant up --provision"
+    puts
+  end
+
+
+  desc "vagrant: cleanup first box"
+  task :cleanup do
+    puts "=== :cleanup"
+    sh "/bin/rm -rf #{@box_dir}/*"
     puts
   end
 
@@ -170,6 +218,10 @@ require 'yaml'
 ## seed.iso file
 @seed_dir  = "#{@tmp_dir}/seedconfig"
 @seed_file = "#{@tmp_dir}/seed-data.iso"
+
+## box file
+@box_dir  = "#{@tmp_dir}/box"
+@box_file = "#{@vm}.first.box"
 
 # require 'pp'
 # pp @config
